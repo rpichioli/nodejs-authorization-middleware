@@ -16,6 +16,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "nodemon": "^1.18.9"
+    "jsonwebtoken": "^8.4.0",
+    "nodemon": "^1.18.9",
+    "validator": "^10.11.0"
   }
 }
