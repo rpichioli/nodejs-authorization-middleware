@@ -2,9 +2,12 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const security = require('../config/security');
 
-// Authorization middleware
-// 1 - Check if token is passed
-// 2 - Check if token is valid
+// Auth middleware that authenticates user based on received token
+// 1 - Extract authorization key from received header
+// 2 - Split by space and get the hash, first is "Bearer"
+// 3 - Check if token is exists
+// 4 - Check if token is valid
+// 5 - Everything OK, pass.. In otherwise, response end here
 module.exports = {
  	authenticate: (req, res, next) => {
 		// Retrieve token from header
@@ -15,7 +18,7 @@ module.exports = {
 		if (authorizationHeader) token = authorizationHeader.split(' ')[1];
 
 		// Bypass authorization middleware if logged in or route is 'auth'
-		if (req.path === '/api/auth') next(); // || req.session.auth
+		if (req.path === '/auth') next();
 		// Token exists then validate to provide access or not
 		else if (token && !validator.isEmpty(token)) {
 			// Validate token with the secret
@@ -24,13 +27,12 @@ module.exports = {
 					res.status(401).json({ error: 'Authentication refused! Unauthorized action.' });
 					res.end();
 				} else {
-					// TODO - Validate token in database
-					// Let de request proceed to it's endpoint
-					next();
+					// Suggest - You can check database here if you want to save it
+
+					next(); // Let de request proceed to it's endpoint naturally
 				}
 			});
 		} else {
-			console.log('Unauthorized.');
 			res.status(401).json({ error: "Unauthorized! You must be logged in to use this service!" });
 			res.end();
 		}

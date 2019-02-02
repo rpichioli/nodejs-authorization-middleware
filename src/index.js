@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const middleware_auth = require('./middlewares/auth');
 const middleware_cors = require('./middlewares/cors');
 const port = 9000;
 
@@ -9,8 +10,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Middleware cross-origin requests
+// CORS middleware
 app.use(middleware_cors.allowAll);
+// Authentication middleware
+app.use(middleware_auth.authenticate);
 
 app.get('/', (req, res) => res.send('Welcome to the API server root route!'));
 
