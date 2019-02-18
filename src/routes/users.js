@@ -52,4 +52,16 @@ router.post('/login', (req, res) => {
 	}
 });
 
+router.get('/', (req, res) => {
+	try {
+		res.send('List would be here, access granted!');
+	} catch (e) {
+		if (e instanceof exceptions.InvalidDataException) {
+			res.status(500).json({ error: e.message });
+		} else {
+			res.status(500).json({ error: "Something wrong happens! Try again later or contact the administrator." });
+		}
+	}
+});
+
 module.exports = router;

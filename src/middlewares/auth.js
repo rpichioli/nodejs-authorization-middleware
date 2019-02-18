@@ -17,8 +17,8 @@ module.exports = {
 		// Get received token
 		if (authorizationHeader) token = authorizationHeader.split(' ')[1];
 
-		// Bypass authorization middleware if logged in or route is 'auth'
-		if (req.path === '/auth') next();
+		// Bypass authorization middleware if path is "users/login"
+		if (req.path === '/users/login') next();
 		// Token exists then validate to provide access or not
 		else if (token && !validator.isEmpty(token)) {
 			// Validate token with the secret
