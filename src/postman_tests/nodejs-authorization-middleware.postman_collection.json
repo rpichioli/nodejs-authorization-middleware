@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "58445068-baca-41b9-93c4-fdeec7d2f941",
+		"name": "nodejs-authorization-middleware",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login - Validate and return token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"master\",\n\t\"password\": \"xyz.987654321\"\n}"
+				},
+				"url": {
+					"raw": "localhost:9000/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users - Protected list extraction",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxIiwidXNlcm5hbWUiOiJtYXN0ZXIiLCJuYW1lIjoiTXkgbmFtZSBpcyB0ZXN0IiwiaWF0IjoxNTUwNjAxNTgwfQ.w0pDJZLVzJ3f3QVySER64SqQWzZSfP2iYPezzDJHDbw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:9000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
