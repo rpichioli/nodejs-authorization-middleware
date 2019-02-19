@@ -1,16 +1,16 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const exceptions = require('../utils/exceptions');
 const security = require('../config/security');
+const CustomException = require('../utils/custom-exception');
 
 const router = express.Router();
 
 /**
- * Login route that receives data and, after a successful validation, generate and return token
+ * POST - Login receiving submitted data and, after successful validation, generate token and return it as response
  */
 router.post('/login', (req, res) => {
 	try {
-		// Simulating user in database to validate login
+		// Simulating a valid user in database to use in login
 		const user = {
 			_id: '1',
 			username: 'master',
@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
 		let {username, password} = req.body;
 
 		// Validate received data
-		if (!username || !password) throw new exceptions.InvalidDataException("Provide all required data to proceed with login!");
+		if (!username || !password) throw new CustomException("Provide all required data to proceed with login!");
 
 		// Fetch database here the way you need to!
 		if (username === user.username && password === user.password) {
@@ -41,10 +41,11 @@ router.post('/login', (req, res) => {
 		}
 
 		// Return invalid data error
-		throw new exceptions.InvalidDataException("Login has been failed! Provide the correct information.")
+		throw new CustomException("Login has been failed! Provide the correct information.")
 
 	} catch (e) {
-		if (e instanceof exceptions.InvalidDataException) {
+		console.log(e);
+		if (e instanceof CustomException) {
 			res.status(500).json({ error: e.message });
 		} else {
 			res.status(500).json({ error: "Something wrong happens! Try again later or contact the administrator." });
@@ -56,7 +57,7 @@ router.get('/', (req, res) => {
 	try {
 		res.send('List would be here, access granted!');
 	} catch (e) {
-		if (e instanceof exceptions.InvalidDataException) {
+		if (e instanceof CustomException) {
 			res.status(500).json({ error: e.message });
 		} else {
 			res.status(500).json({ error: "Something wrong happens! Try again later or contact the administrator." });
