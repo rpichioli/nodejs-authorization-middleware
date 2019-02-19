@@ -2,13 +2,18 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const security = require('../config/security');
 
-// Auth middleware that authenticates user based on received token
-// 1 - Extract authorization key from received header
-// 2 - Split by space and get the hash, first is "Bearer"
-// 3 - Check if token is exists
-// 4 - Check if token is valid
-// 5 - Everything OK, pass.. In otherwise, response end here
 module.exports = {
+    /**
+     * Auth middleware that authenticates user based on received token
+     * 1 - Extract authorization key from received header
+     * 2 - Split by space and get the hash, first is "Bearer"
+     * 3 - Check if token is exists
+     * 4 - Check if token is valid
+     * 5 - Everything OK, pass.. In otherwise, response end here
+     * @param  {object}   req  Request
+     * @param  {object}   res  Response
+     * @param  {function} next Enable the process to go on
+     */
  	authenticate: (req, res, next) => {
 		// Retrieve token from header
 		const authorizationHeader = req.headers['authorization'];
