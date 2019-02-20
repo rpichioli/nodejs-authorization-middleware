@@ -6,7 +6,7 @@ The focus is not to work with database and interface. I have mocked an user in t
 With a valid token in hand after the login, you must use it in protected calls (``/users/``) providing the key **authorization** with value **Bearer [token_goes_here]** in your request header. The middleware will validate it and decide if the request can go on or stop at this point, negating any contact.
 
 ### Middlewares
-**1. CORS** - Provide access to pre-defined origin, methods and headers to requests (I have allowed globally in this test application). Located at:
+**1. CORS** - Provide access to pre-defined origin, methods and headers to requests (allowed globally in this app). Located at:
 ```
 /middleware/cors.js
 ```
@@ -17,7 +17,7 @@ With a valid token in hand after the login, you must use it in protected calls (
 ```
 
 ### Token
-Another important point is that I'm using **jsonwebtoken** to generate and verify token. The generation is based in a secret that I have saved as a module in:
+Another important point is that I'm using **jsonwebtoken** to generate and verify token. The token generation is based in a secret that I have saved as a js module located at:
 ```
 /config/security.js
 ```
@@ -32,8 +32,8 @@ You can test the authorization middleware providing a false token to protected A
 ### Authentication Middleware
 - Validate Bearer token received from request header through **authorization** key;
 - Extract token and try to decode it - Using the secret that generates the cryptography at the first time with **jsonwebtoken**;
-- Verify if token is granted at database; (suggestion, database is simulated)
-- Grants authorization to protected services, or deny it if somethings is going wrong.
+- Grants authorization to protected services, or deny it if something is going wrong;
+- **Suggestions for most advanced implementations:** You can verify if token is granted in database, you can expire it if passed some time without access, you can work with 2 tokens - one for access and one for authorization - returning the access for user, and more.. 
 
 ### Login (authorization) API
 - Validate posted received data from request;
