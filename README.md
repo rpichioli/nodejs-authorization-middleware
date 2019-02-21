@@ -1,12 +1,17 @@
 # nodejs-authorization-middleware
-Here you'll see how to implement an **authorization middleware** based on token validation and how to implement login **unprotected  API** to provide valid token and **protected API** that needs authorization to proceed with the response, otherwise the response ends in validation.
+This project shows how to implement middleware within NodeJS + Express server and how to build basic **authorization middleware**. 
 
-The focus is not to work with database and interface. I have mocked an user in the login route (``/users/login``) that must be used to login in the application (you can change it). 
+The objective is to support developers in how to build a complete flow applying auth concepts within NodeJS and apply NodeJS concepts too. 
 
-With a valid token in hand after the login, you must use it in protected calls (``/users/``) providing the key **authorization** with value **Bearer [token_goes_here]** in your request header. The middleware will validate it and decide if the request can go on or stop at this point, negating any contact.
+## Notes about the project
+Basically we have an unprotected entry-point to validate user and provide token (login) in response, and one protected endpoint working under the middleware that expose content if authorized and authenticated, otherwise the response ends in validation.
+
+The focus is not to work with database and interface - I have **mocked an user simulating some database data in login** route (``/users/login``) that must be used to enter successfully the application. 
+
+With a valid token in hand (logged) you can request protected routes (``/users/``) providing the key **authorization** and value **Bearer [token_goes_here]** in your request header. The middleware **verify the token existence in header**, **extract it**, **validate it's integrity with the secret** used to generate it and **validate user** deciding if the request can go on or stop at this point, negating any contact.
 
 ### Middlewares
-**1. CORS** - Provide access to pre-defined origin, methods and headers to requests (allowed globally in this app). Located at:
+**1. CORS** - Provide pre-configured access globally to **origin**, **methods** and **headers** for all requests (allowed  in this app). Located at:
 ```
 /middleware/cors.js
 ```
@@ -38,8 +43,8 @@ You can test the authorization middleware providing a false token to protected A
 ### Login (authorization) API
 - Validate posted received data from request;
 - Verify if user exists and password cryptography is OK;
-- Save into database (suggestion, database is simulated);
-- Return 200 response exposing token and boolean success with true, or treated error.
+- Return 200 response exposing token and boolean success with true, or treated error;
+- **Suggestions for most advanced implementations:** Save into database, set expiration rules.
 
 ### Developed by
 Rodrigo Quiñones Pichioli, since Jan/2019
