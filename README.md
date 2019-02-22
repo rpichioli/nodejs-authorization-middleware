@@ -1,9 +1,9 @@
 # nodejs-authorization-middleware
-This project shows how to implement middleware within NodeJS + Express server and how to build basic **authorization middleware**. 
+This project shows how to implement middleware within NodeJS + Express server and how to build basic **authorization middleware**.
 
 The objective is to support developers in how to build a complete flow applying auth concepts within NodeJS and apply NodeJS concepts too. 
 
-## Notes about the project
+## Important Notes
 Basically we have an unprotected entry-point to validate user and provide token (login) in response, and one protected endpoint working under the middleware that expose content if authorized and authenticated, otherwise the response ends in validation.
 
 The focus is not to work with database and interface - I have **mocked an user simulating some database data in login** route (``/users/login``) that must be used to enter successfully the application. 
